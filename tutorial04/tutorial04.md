@@ -148,7 +148,7 @@ static int lept_parse_string(lept_context* c, lept_value* v) {
 
 ## 5. 总结与练习
 
-本单元介绍了 Unicode 的基本知识，同学应该了解到一些常用的 Unicode 术语，如码点、编码单元、UTF-8、代理对等。这次的练习代码只有个空壳，要由同学填充。完成后应该能通过所有单元测试，届时我们的 JSON 字符串解析就完全符合标准了。
+本单元介绍了 Unicode 的基本知识，同学应该了解到一些常用的 Unicode 术语，如码点、编码单元、UTF-8、代理对等。这次的练习代码只有个空壳，要由同学填充。完成后应该能通过所有单元测试，届时我们的 JSON 字符0串解析就完全符合标准了。
 
 1. 实现 `lept_parse_hex4()`，不合法的十六进位数返回 `LEPT_PARSE_INVALID_UNICODE_HEX`。
 2. 按第 3 节谈到的 UTF-8 编码原理，实现 `lept_encode_utf8()`。这函数假设码点在正确范围 U+0000 ~ U+10FFFF（用断言检测）。

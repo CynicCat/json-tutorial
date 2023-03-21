@@ -107,7 +107,7 @@ static int lept_parse_string(lept_context* c, lept_value* v) {
 }
 ~~~
 
-这样的话，我们实现对象的解析时，就可以使用 `lept_parse_string_raw()`　来解析 JSON 字符串，然后把结果复制至 `lept_member` 的 `k` 和 `klen` 字段。
+这样的话，我们实现对象的解析时，就可以使用 `lept_parse_string_raw()`　来解析 JSON 字符串 ，然后把结果复制至 `lept_member` 的 `k` 和 `klen` 字段。
 
 注：在 Fowler 的经典著作 [1] 中，把各种重构方式分门别类，每个方式都有详细的步骤说明。由于书中以 Java 为例子，所以方式的名称使用了 Java 的述语，例如方法（method）。在 C 语言中，「提取方法」其实应该称为「提取函数」。
 

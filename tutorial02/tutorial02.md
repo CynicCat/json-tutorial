@@ -45,6 +45,8 @@ static void test_parse_expect_value() {
 
 最后，我希望指出，软件的架构难以用单一标准评分，重构时要考虑平衡各种软件品质。例如上述把 3 个函数合并后，优点是减少重复的代码，维护较容易，但缺点可能是带来性能的少量影响。
 
+
+
 ## 2. JSON 数字语法
 
 回归正题，本单元的重点在于解析 JSON number 类型。我们先看看它的语法：
@@ -200,7 +202,7 @@ static int lept_parse_value(lept_context* c, lept_value* v) {
 
 1. 重构合并 `lept_parse_null()`、`lept_parse_false()`、`lept_parse_true()` 为 `lept_parse_literal()`。
 2. 加入 [维基百科双精度浮点数](https://en.wikipedia.org/wiki/Double-precision_floating-point_format#Double-precision_examples) 的一些边界值至单元测试，如 min subnormal positive double、max double 等。
-3. 去掉 `test_parse_invalid_value()` 和 `test_parse_root_not_singular()` 中的 `#if 0 ... #endif`，执行测试，证实测试失败。按 JSON number 的语法在 lept_parse_number() 校验，不符合标准的情况返回 `LEPT_PARSE_INVALID_VALUE` 错误码。
+3. 去掉 `test_parse_invalid_value()` 和 `test_parse_root_not_singular()` 中的 `#if 0 ... #endif`，执行测试，证实测试失败。按 JSON number 的语法在 lept_parse_number() 校验，不符合标准的情况返回 `LEPT_PARSE_INVALID_VALUE` 错误码。*
 4. 去掉 `test_parse_number_too_big` 中的 `#if 0 ... #endif`，执行测试，证实测试失败。仔细阅读 [`strtod()`](https://en.cppreference.com/w/c/string/byte/strtof)，看看怎样从返回值得知数值是否过大，以返回 `LEPT_PARSE_NUMBER_TOO_BIG` 错误码。（提示：这里需要 `#include` 额外两个标准库头文件。）
 
 以上最重要的是第 3 条题目，就是要校验 JSON 的数字语法。建议可使用以下两个宏去简化一下代码：
@@ -214,7 +216,7 @@ static int lept_parse_value(lept_context* c, lept_value* v) {
 
 如果你遇到问题，有不理解的地方，或是有建议，都欢迎在评论或 [issue](https://github.com/miloyip/json-tutorial/issues) 中提出，让所有人一起讨论。
 
-## 7. 参考
+##  	7. 参考
 
 [1] Fowler, Martin. Refactoring: improving the design of existing code. Pearson Education India, 2009. 中译本：《重构：改善既有代码的设计》，熊节译，人民邮电出版社，2010年。
 

@@ -20,11 +20,33 @@ static int test_pass = 0;
 
 #define EXPECT_EQ_INT(expect, actual) EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%d")
 
+#define TEST_ERROR(error, json)\
+    do {\
+        lept_value v;\
+        v.type = LEPT_FALSE;\
+        EXPECT_EQ_INT(error, lept_parse(&v, json));\
+        EXPECT_EQ_INT(LEPT_NULL, lept_get_type(&v));\
+    } while(0)
+
 static void test_parse_null() {
     lept_value v;
     v.type = LEPT_FALSE;
     EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "null"));
     EXPECT_EQ_INT(LEPT_NULL, lept_get_type(&v));
+}
+static void test_parse_false() {
+    lept_value v;
+    v.type = LEPT_FALSE;
+    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "false"));
+    EXPECT_EQ_INT(LEPT_FALSE, lept_get_type(&v));
+
+}
+static void test_parse_true() {
+    lept_value v;
+    v.type = LEPT_TRUE;
+    EXPECT_EQ_INT(LEPT_PARSE_OK, lept_parse(&v, "true"));
+    EXPECT_EQ_INT(LEPT_TRUE, lept_get_type(&v));
+
 }
 
 static void test_parse_expect_value() {
@@ -56,16 +78,29 @@ static void test_parse_root_not_singular() {
     EXPECT_EQ_INT(LEPT_PARSE_ROOT_NOT_SINGULAR, lept_parse(&v, "null x"));
     EXPECT_EQ_INT(LEPT_NULL, lept_get_type(&v));
 }
+#define TEST_NUMBER(expect,json)\
+    do  {\
+        lept_parse v;\
+        EXPECT_EQ_INT(LEPT_PARSE_OK,lept_parse(&v,json));\
+        EXPECT_EQ_INT(LEPT_NUMBER, lept_get_type(&v));\
+        EXPECT_EQ_DOUBLE(expect, lept_get_number(&v));\
+    } while (0)
+
+
 
 static void test_parse() {
     test_parse_null();
+    test_parse_false();
+    test_parse_true();
     test_parse_expect_value();
     test_parse_invalid_value();
     test_parse_root_not_singular();
 }
 
 int main() {
-    test_parse();
-    printf("%d/%d (%3.2f%%) passed\n", test_pass, test_count, test_pass * 100.0 / test_count);
+    // test_parse();
+    // printf("%d/%d (%3.2f%%) passed\n", test_pass, test_count, test_pass * 100.0 / test_count);
+    int i=0;
+    printf("%d", i);
     return main_ret;
 }

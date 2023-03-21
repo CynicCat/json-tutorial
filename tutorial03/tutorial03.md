@@ -144,7 +144,7 @@ void lept_set_string(lept_value* v, const char* s, size_t len);
 
 ~~~c
 static void test_access_string() {
-    lept_value v;
+    lept_value v;                                                                                     
     lept_init(&v);
     lept_set_string(&v, "", 0);
     EXPECT_EQ_STRING("", lept_get_string(&v), lept_get_string_length(&v));
